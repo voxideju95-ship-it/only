@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OnlyPumps | $ONLYPUMPS</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <!-- Umami Analytics — замени ТВОЙ_WEBSITE_ID на ID из Settings → Websites -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="5e27fd34-030c-44d7-afb1-7b56c9b2da5a"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -575,10 +577,10 @@
     Only<span>Pumps</span>
   </div>
   <div class="mobile-header-right">
-    <a href="https://x.com/onlypumps_meme" class="mobile-soc" title="X / Twitter">𝕏</a>
-    <a href="https://t.me/onlypumps_meme" class="mobile-soc" title="Telegram">✈</a>
-    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="mobile-soc" title="Dexscreener">📊</a>
-    <button class="mobile-buy" onclick="toast('🚀 Opening DEX...')">🚀 Buy</button>
+    <a href="https://x.com/onlypumps_meme" class="mobile-soc" title="X / Twitter" data-umami-event="click-twitter">𝕏</a>
+    <a href="https://t.me/onlypumps_meme" class="mobile-soc" title="Telegram" data-umami-event="click-telegram">✈</a>
+    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="mobile-soc" title="Dexscreener" data-umami-event="click-dexscreener">📊</a>
+    <button class="mobile-buy" onclick="toast('🚀 Opening DEX...')" data-umami-event="click-buy-mobile-header">🚀 Buy</button>
   </div>
 </header>
 
@@ -610,11 +612,11 @@
 
     <div class="sidebar-bottom">
       <div class="socials">
-        <a href="https://x.com/onlypumps_meme" class="soc" title="X / Twitter">𝕏</a>
-        <a href="https://t.me/onlypumps_meme" class="soc" title="Telegram">✈</a>
-        <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="soc" title="Dexscreener">📊</a>
+        <a href="https://x.com/onlypumps_meme" class="soc" title="X / Twitter" data-umami-event="click-twitter">𝕏</a>
+        <a href="https://t.me/onlypumps_meme" class="soc" title="Telegram" data-umami-event="click-telegram">✈</a>
+        <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="soc" title="Dexscreener" data-umami-event="click-dexscreener">📊</a>
       </div>
-      <button class="buy-btn" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+      <button class="buy-btn" onclick="toast('🚀 Opening DEX...')" data-umami-event="click-buy-sidebar">🚀 BUY $ONLYPUMPS</button>
     </div>
   </aside>
 
@@ -628,29 +630,22 @@
     <!-- Stories -->
     <div class="stories">
       <div class="story">
-        <div class="story-ring"><div class="story-inner">🚀</div></div>
-        <span class="story-lbl">Launch</span>
-      </div>
-      <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at"><div class="story">
+        <a href="https://swap.pump.fun/?input=So11111111111111111111111111111111111111112&output=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" data-umami-event="click-buy-story"><div class="story-ring"><div class="story-inner">🚀</div></div>
+        <span class="story-lbl">Buy</span>
+      </div></a>
+      <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" data-umami-event="click-dexscreener"><div class="story">
         <div class="story-ring"><div class="story-inner">📈</div></div>
         <span class="story-lbl">Chart</span>
       </div></a>
-      <div class="story">
+      <a href="https://x.com/onlypumps_meme" data-umami-event="click-twitter"><div class="story">
         <div class="story-ring"><div class="story-inner">🌙</div></div>
-        <span class="story-lbl">Moon</span>
-      </div>
+        <span class="story-lbl">X</span>
+      </div></a>
       <div class="story">
-        <div class="story-ring unseen"><div class="story-inner">💎</div></div>
-        <span class="story-lbl">Diamond</span>
-      </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">🔥</div></div>
-        <span class="story-lbl">Alpha</span>
-      </div>
-      <div class="story">
-        <div class="story-ring unseen"><div class="story-inner">🎯</div></div>
-        <span class="story-lbl">Goals</span>
-      </div>
+       <a href="https://t.me/onlypumps_meme" data-umami-event="click-telegram"> <div class="story-ring unseen"><div class="story-inner">💎</div></div>
+        <span class="story-lbl">Telegram</span>
+      </div></a>
+      
     </div>
 
     <!-- ── POST 1 ──────────────────────────────────────── -->
@@ -692,7 +687,7 @@
   <div class="post-img">
     <div class="post-img">
 <iframe
-  src="https://dexscreener.com/solana/7mkmgzfbx7x7osh4bxyb8v5dypsn2xlhmrxqhfyqphvt?embed=1&theme=light&chartTheme=light&tvTheme=light&trades=0&info=0"
+  src="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at?embed=1&theme=light&chartTheme=light&tvTheme=light&trades=0&info=0"
   width="100%"
   height="100%"
   style="border:none;border-radius:16px;"
@@ -893,8 +888,8 @@
       <div class="ca-section">
         <div class="ca-label">Contract Address · Solana</div>
         <div class="ca-box">
-          <span class="ca-addr" id="ca">7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgHEz</span>
-          <button class="copy-btn" id="copyBtn" onclick="copyCA()">Copy</button>
+          <span class="ca-addr" id="ca">hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at</span>
+          <button class="copy-btn" id="copyBtn" onclick="copyCA()" data-umami-event="click-copy-ca">Copy</button>
         </div>
       </div>
     </div>
@@ -916,11 +911,11 @@
     <div class="card">
       <div class="buy-card">
         <p>Join holders. Only pumps — never dumps.</p>
-        <button class="buy-big" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+        <a href="https://swap.pump.fun/?input=So11111111111111111111111111111111111111112&output=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" data-umami-event="click-buy-sidebar-card"><button class="buy-big">🚀 BUY $ONLYPUMPS</button></a>
         <div class="dex-row">
-          <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Pump.fun</a>
-          <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Jupiter</a>
-          <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Dexscreener</a>
+          <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dex-pumpfun">Pump.fun</a>
+          <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dex-jupiter">Jupiter</a>
+          <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dexscreener">Dexscreener</a>
         </div>
       </div>
     </div>
@@ -930,11 +925,11 @@
 
 <!-- ══ MOBILE BOTTOM BUY BAR ══════════════════════════════ -->
 <div class="mobile-buy-bar">
-  <button class="buy-big" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+        <a href="https://swap.pump.fun/?input=So11111111111111111111111111111111111111112&output=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" data-umami-event="click-buy-mobile-bottom"><button class="buy-big">🚀 BUY $ONLYPUMPS</button></a>
   <div class="dex-row">
-    <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Pump.fun</a>
-    <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Jupiter</a>
-    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Dexscreener</a>
+    <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dex-pumpfun">Pump.fun</a>
+    <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dex-jupiter">Jupiter</a>
+    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link" data-umami-event="click-dexscreener">Dexscreener</a>
   </div>
 </div>
 
@@ -978,7 +973,7 @@
   }
 
   // ── Dexscreener live data ──────────────────────────────
-  const DEX_PAIR = '7mkmgzfbx7x7osh4bxyb8v5dypsn2xlhmrxqhfyqphvt';
+  const DEX_PAIR = 'hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at';
 
   function fmtPrice(n) {
     if (n === null || n === undefined) return '—';

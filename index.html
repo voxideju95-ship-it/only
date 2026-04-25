@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OnlyPumps | $ONLYPUMPS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #00aff0;
+      --blue2:  #0090c8;
+      --blue3:  #e8f8fe;
+      --bg:     #f5f5f5;
+      --white:  #ffffff;
+      --border: #e0e0e0;
+      --text:   #1a1a1a;
+      --muted:  #767676;
+      --green:  #00a854;
+      --r:      14px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr 290px;
+      min-height: 100vh;
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+
+    /* ── LEFT SIDEBAR ────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px 24px;
+      gap: 2px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px 26px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--blue); }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: .15s;
+    }
+    .nav-link:hover { background: var(--bg); color: var(--text); }
+    .nav-link.on { color: var(--blue); font-weight: 700; }
+    .nav-link.on .i-wrap { background: var(--blue3); }
+    .i-wrap {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+
+    .socials { display: flex; gap: 8px; }
+    .soc {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px;
+      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: .15s;
+    }
+    .soc:hover { border-color: var(--blue); color: var(--blue); background: var(--blue3); }
+
+    .buy-btn {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      padding: 13px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: .15s;
+    }
+    .buy-btn:hover { background: var(--blue2); }
+
+    /* ── FEED ────────────────────────────────────────────── */
+    .feed {
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .feed-top {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .feed-top h2 { font-size: 16px; font-weight: 800; color: var(--text); }
+    .live-tag {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--muted); font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .dot { width: 7px; height: 7px; background: #f44; border-radius: 50%; animation: blink 1.2s step-start infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── STORIES ─────────────────────────────────────────── */
+    .stories {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 16px;
+      padding: 16px 20px;
+      overflow-x: auto;
+    }
+    .stories::-webkit-scrollbar { height: 0; }
+    .story { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer; }
+    .story-ring {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, var(--blue), #80dff8);
+    }
+    .story-ring.unseen { background: #ddd; }
+    .story-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2.5px solid var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      overflow: hidden;
+    }
+    .story-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .story-lbl { font-size: 11px; color: var(--text); font-weight: 500; }
+
+    /* ── POST ────────────────────────────────────────────── */
+    .post {
+      background: var(--white);
+      border-bottom: 8px solid var(--bg);
+    }
+
+    .post-head {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 16px 20px 12px;
+    }
+    .ava {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #80d8f8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .ava img { width: 100%; height: 100%; object-fit: cover; }
+    .post-who { flex: 1; }
+    .post-name {
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .badge {
+      width: 16px; height: 16px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 8px; color: #fff;
+    }
+    .post-time { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .post-text {
+      padding: 0 20px 14px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .post-text .t { color: var(--blue); font-weight: 600; }
+
+    /* ── POST IMAGE ──────────────────────────────────────── */
+    /*
+      Как добавить картинку:
+      <div class="post-img">
+        <img src="твоя-картинка.jpg" />
+      </div>
+    */
+    .post-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: #ccc; pointer-events: none;
+    }
+    .placeholder span { font-size: 44px; }
+    .placeholder p { font-size: 12px; }
+
+    /* Locked */
+    .post-img.locked::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(14px);
+    }
+    .lock-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .lock-circle {
+      width: 52px; height: 52px;
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      background: rgba(0,175,240,0.08);
+    }
+    .lock-overlay strong { font-size: 14px; font-weight: 700; color: var(--text); }
+    .lock-overlay small { font-size: 12px; color: var(--muted); }
+    .unlock-btn {
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 26px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .15s;
+      margin-top: 4px;
+    }
+    .unlock-btn:hover { background: var(--blue2); }
+
+    /* ── POST ACTIONS ────────────────────────────────────── */
+    .post-foot {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 2px;
+    }
+    .act {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      color: var(--muted);
+      transition: .15s;
+    }
+    .act:hover { background: var(--bg); color: var(--text); }
+    .act.liked { color: #f44; }
+    .act .i { font-size: 17px; }
+    .share-act {
+      margin-left: auto;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      transition: .15s;
+    }
+    .share-act:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── RIGHT SIDEBAR ───────────────────────────────────── */
+    .right {
+      background: var(--bg);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+
+    /* Profile */
+    .profile-banner {
+      height: 80px;
+      background: linear-gradient(135deg, var(--blue) 0%, #80d8f8 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; gap: 10px; opacity: 0.9;
+      position: relative;
+    }
+    /* Аватар обложки — можно заменить на <img> */
+    .profile-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    .profile-body { padding: 0 16px 16px; }
+    .prof-row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: -22px; margin-bottom: 10px;
+    }
+    .prof-ava {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #80d8f8);
+      border: 3px solid var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .prof-ava img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .follow-btn {
+      background: var(--blue);
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 13px; font-weight: 700;
+      transition: .15s;
+    }
+    .follow-btn:hover { background: var(--blue2); }
+    .prof-name { font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+    .prof-handle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .prof-bio { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+    .prof-stats {
+      display: flex; gap: 20px;
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .ps-val { font-size: 15px; font-weight: 800; color: var(--text); }
+    .ps-lbl { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+    /* CA */
+    .ca-section { padding: 14px; }
+    .ca-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; }
+    .ca-box {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+    }
+    .ca-addr {
+      flex: 1;
+      font-size: 10px; color: var(--muted);
+      font-family: monospace;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .copy-btn {
+      background: var(--blue3);
+      border: 1px solid var(--blue);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px; font-weight: 700;
+      transition: .15s; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: var(--blue); color: #fff; }
+    .copy-btn.ok { background: #e6f9ef; border-color: var(--green); color: var(--green); }
+
+    /* Metrics */
+    .card-title {
+      padding: 12px 14px 8px;
+      font-size: 13px; font-weight: 700;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.3px;
+    }
+    .mrow {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 14px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mrow:last-child { border-bottom: none; }
+    .mrow .k { color: var(--muted); font-size: 12px; }
+    .mrow .v { font-weight: 700; }
+    .green { color: var(--green); }
+    .blue  { color: var(--blue); }
+
+    /* Buy */
+    .buy-card { padding: 16px; }
+    .buy-card p { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; text-align: center; }
+    .buy-big {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      padding: 13px;
+      border-radius: 25px;
+      font-size: 15px; font-weight: 700;
+      transition: .15s;
+    }
+    .buy-big:hover { background: var(--blue2); }
+    .dex-row { display: flex; gap: 6px; margin-top: 8px; }
+    .dex-link {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 4px;
+      border-radius: 8px;
+      font-size: 10px; font-weight: 700;
+      text-align: center;
+      transition: .15s;
+    }
+    .dex-link:hover { border-color: var(--blue); color: var(--blue); background: var(--blue3); }
+
+    /* ── TOAST ───────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(70px);
+      background: var(--text);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px; font-weight: 600;
+      z-index: 999; opacity: 0; pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
+      white-space: nowrap;
+    }
+    .toast.on { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 64px 1fr; }
+      .right { display: none; }
+      .nav-link .label { display: none; }
+      .nav-link { justify-content: center; padding: 10px; }
+      .logo .logo-text { display: none; }
+      .logo { justify-content: center; padding-bottom: 20px; }
+      .socials { flex-direction: column; }
+      .buy-btn { font-size: 0; padding: 10px; border-radius: 50%; }
+      .buy-btn::after { content: '🚀'; font-size: 18px; }
+    }
+    @media (max-width: 600px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ══ LEFT SIDEBAR ══════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark"><img class="logo-mark" src="logo.jpg" alt=""></div>
+      <div class="logo-text">Only<span>Pumps</span></div>
+    </div>
+
+    <a href="#" class="nav-link on">
+      <div class="i-wrap">🏠</div>
+      <span class="label">Home</span>
+    </a>
+    <a href="#" class="nav-link">
+      <div class="i-wrap">📈</div>
+      <span class="label">Charts</span>
+    </a>
+    <a href="#" class="nav-link">
+      <div class="i-wrap">💎</div>
+      <span class="label">Holders</span>
+    </a>
+    <a href="#" class="nav-link">
+      <div class="i-wrap">👤</div>
+      <span class="label">Profile</span>
+    </a>
+
+    <div class="sidebar-bottom">
+      <div class="socials">
+        <!-- Замени href на свои ссылки -->
+        <a href="#" class="soc" title="X / Twitter">𝕏</a>
+        <a href="#" class="soc" title="Telegram">✈</a>
+        <a href="#" class="soc" title="Dexscreener">📊</a>
+      </div>
+      <button class="buy-btn" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+    </div>
+  </aside>
+
+  <!-- ══ FEED ══════════════════════════════════════════════ -->
+  <main class="feed">
+
+    <div class="feed-top">
+      <h2>OnlyPumps</h2>
+    </div>
+
+    <!-- Stories -->
+    <div class="stories">
+      <div class="story">
+        <div class="story-ring"><div class="story-inner">🚀</div></div>
+        <span class="story-lbl">Launch</span>
+      </div>
+      <div class="story">
+        <div class="story-ring"><div class="story-inner">📈</div></div>
+        <span class="story-lbl">Chart</span>
+      </div>
+      <div class="story">
+        <div class="story-ring"><div class="story-inner">🌙</div></div>
+        <span class="story-lbl">Moon</span>
+      </div>
+      <div class="story">
+        <div class="story-ring unseen"><div class="story-inner">💎</div></div>
+        <span class="story-lbl">Diamond</span>
+      </div>
+      <div class="story">
+        <div class="story-ring"><div class="story-inner">🔥</div></div>
+        <span class="story-lbl">Alpha</span>
+      </div>
+      <div class="story">
+        <div class="story-ring unseen"><div class="story-inner">🎯</div></div>
+        <span class="story-lbl">Goals</span>
+      </div>
+    </div>
+
+    <!-- ── POST 1 ──────────────────────────────────────── -->
+    <!-- To add an image replace the placeholder div with: <img src="your-image.jpg" /> -->
+    <article class="post">
+      <div class="post-head">
+        <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
+        <div class="post-who">
+          <div class="post-name">OnlyPumps <span class="badge">✓</span></div>
+          <div class="post-time">just now</div>
+        </div>
+      </div>
+      <div class="post-text">
+        We only pump. Always. 📈 <span class="t">#ONLYPUMPS</span>
+      </div>
+      <div class="post-img">
+        <img src="pepe1.png" /> 
+      </div>
+      <div class="post-foot">
+        <button class="act" onclick="like(this)"><span class="i">🤍</span> 69.4K</button>
+        <button class="act"><span class="i">💬</span> 2.1K</button>
+        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+      </div>
+    </article>
+
+    <!-- ── POST 2 ──────────────────────────────────────── -->
+   <article class="post">
+  <div class="post-head">
+    <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
+    <div class="post-who">
+      <div class="post-name">OnlyPumps <span class="badge">✓</span></div>
+      <div class="post-time">2 hours ago</div>
+    </div>
+  </div>
+
+  <div class="post-text">
+    Listed on <span class="t">Dexscreener</span>.
+  </div>
+
+  <div class="post-img">
+    <div class="post-img">
+<iframe
+  src="https://dexscreener.com/solana/7mkmgzfbx7x7osh4bxyb8v5dypsn2xlhmrxqhfyqphvt?embed=1&theme=light&chartTheme=light&tvTheme=light&trades=0&info=0"
+  width="100%"
+  height="100%"
+  style="border:none;border-radius:16px;"
+  loading="lazy">
+</iframe>
+</div>
+  </div>
+
+  <div class="post-foot">
+    <button class="act" onclick="like(this)"><span class="i">🤍</span> 42K</button>
+    <button class="act"><span class="i">💬</span> 987</button>
+    <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+  </div>
+</article>
+
+    <!-- ── POST 3 ──────────────────────────────────────── -->
+    <article class="post">
+      <div class="post-head">
+        <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
+        <div class="post-who">
+          <div class="post-name">OnlyPumps <span class="badge">✓</span></div>
+          <div class="post-time">5 hours ago</div>
+        </div>
+      </div>
+      <div class="post-text">
+        Pepe is very hot today
+      </div>
+      <div class="post-img">
+        <img src="pepe2.jpg" /> 
+      </div>
+      <div class="post-foot">
+        <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
+        <button class="act"><span class="i">💬</span> 3.1K</button>
+        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+      </div>
+    </article>
+
+    <!-- ── POST 4 ──────────────────────────────────────── -->
+<article class="post">
+  <div class="post-head">
+    <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
+    <div class="post-who">
+      <div class="post-name">OnlyPumps <span class="badge">✓</span></div>
+      <div class="post-time">exclusive</div>
+    </div>
+  </div>
+
+  <div class="post-text">
+    <b>🔒 Premium Tokenomics Access</b><br>
+    Structured breakdown for <span class="t">$ONLYPUMPS</span>
+  </div>
+
+  <!-- WHITE / BLUE TOKENOMICS BLOCK -->
+  <div class="of-blue-box">
+    <div class="of-blue-header">VIP TOKENOMICS</div>
+
+    <div class="of-blue-item">
+      <span>Total Supply</span>
+      <b>1,000,000,000</b>
+    </div>
+
+    <div class="of-blue-item">
+      <span>Liquidity Pool</span>
+      <b>Locked</b>
+    </div>
+
+    <div class="of-blue-item">
+      <span>Fees</span>
+      <b>0%</b>
+    </div>
+
+    <div class="of-blue-item">
+      <span>Contract</span>
+      <b>100% revoked</b>
+    </div>
+
+    <div class="of-blue-item">
+      <span>Launched</span>
+      <b>on Pump.fun</b>
+    </div>
+
+
+
+    <button class="of-blue-btn">Unlock Access</button>
+  </div>
+
+  <div class="post-foot">
+    <button class="act" onclick="like(this)"><span class="i">🤍</span> 55K</button>
+    <button class="act"><span class="i">💬</span> 1.2K</button>
+    <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+  </div>
+</article>
+    <!-- ── POST 3 ──────────────────────────────────────── -->
+    <article class="post">
+      <div class="post-head">
+        <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
+        <div class="post-who">
+          <div class="post-name">OnlyPumps <span class="badge">✓</span></div>
+          <div class="post-time">5 hours ago</div>
+        </div>
+      </div>
+      <div class="post-text">
+        50,000 holders 🏆 The army keeps growing. Welcome aboard 🚀
+      </div>
+      <div class="post-img">
+        <img src="pepe2.jpg" /> 
+      </div>
+      <div class="post-foot">
+        <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
+        <button class="act"><span class="i">💬</span> 3.1K</button>
+        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+      </div>
+    </article>
+
+<style>
+.of-blue-box{
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #ffffff, #f4f8ff);
+  border: 1px solid rgba(0, 90, 255, 0.25);
+  box-shadow: 0 0 18px rgba(0, 90, 255, 0.12);
+  color: #0b1b3a;
+}
+
+.of-blue-header{
+  font-size: 13px;
+  font-weight: 800;
+  color: #1f6fff;
+  margin-bottom: 10px;
+  letter-spacing: 0.6px;
+}
+
+.of-blue-item{
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 5px 0;
+  color: rgba(11, 27, 58, 0.75);
+}
+
+.of-blue-item b{
+  color: #0b1b3a;
+}
+
+.of-blue-note{
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #1f6fff;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 90, 255, 0.12);
+}
+
+.of-blue-btn{
+  margin-top: 10px;
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #1f6fff, #4da3ff);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.of-blue-btn:hover{
+  opacity: 0.92;
+}
+</style>
+
+  </main>
+
+  <!-- ══ RIGHT SIDEBAR ══════════════════════════════════════ -->
+  <aside class="right">
+
+    <!-- Profile card -->
+    <div class="card">
+      <div class="profile-banner">
+        <!-- Обложка профиля: <img src="banner.jpg" /> -->
+        🚀 📈 🌙 💎
+      </div>
+      <div class="profile-body">
+        <div class="prof-row">
+          <!--
+            Аватар: <div class="prof-ava"><img src="avatar.jpg" /></div>
+          -->
+          <div class="prof-ava"><img class="prof-ava" src="logo.jpg" alt=""></div>
+          <button class="follow-btn">+ Follow</button>
+        </div>
+        <div class="prof-name">OnlyPumps <span class="badge">✓</span></div>
+        <div class="prof-handle">@onlypumps</div>
+        <div class="prof-bio">Now it’s not just in that incognito browser, but in your wallet too. Don’t tell anyone you’ve bought it 🤫🩵🤍</div>
+        <div class="prof-stats">
+          <div><div class="ps-val">420</div><div class="ps-lbl">Posts</div></div>
+          <div><div class="ps-val">69.4K</div><div class="ps-lbl">Holders</div></div>
+          <div><div class="ps-val">1.2M</div><div class="ps-lbl">Likes</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contract Address -->
+    <div class="card">
+      <div class="ca-section">
+        <div class="ca-label">Contract Address · Solana</div>
+
+        <div class="ca-box">
+          <!-- Замени на свой CA -->
+          <span class="ca-addr" id="ca">7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgHEz</span>
+          <button class="copy-btn" id="copyBtn" onclick="copyCA()">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token metrics -->
+    <div class="card">
+      <div class="card-title">Token</div>
+      <div class="mrow"><span class="k">Price</span><span class="v green" id="livePrice">$0.00069</span></div>
+      <div class="mrow"><span class="k">Market Cap</span><span class="v blue">$4.20M</span></div>
+      <div class="mrow"><span class="k">Volume 24h</span><span class="v">$420K</span></div>
+      <div class="mrow"><span class="k">Change 24h</span><span class="v green">+420.69%</span></div>
+      <div class="mrow"><span class="k">Holders</span><span class="v">69,420</span></div>
+    </div>
+
+    <!-- Buy -->
+    <div class="card">
+      <div class="buy-card">
+        <p>Join 69,420 holders. Only pumps — never dumps.</p>
+        <!-- Replace onclick with window.open('your DEX link') -->
+        <button class="buy-big" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+        <div class="dex-row">
+          <a href="#" class="dex-link">Raydium</a>
+          <a href="#" class="dex-link">Jupiter</a>
+          <a href="#" class="dex-link">Dexscreener</a>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+  let _t;
+  function toast(msg) {
+    const el = document.getElementById('toastEl');
+    el.textContent = msg;
+    el.classList.add('on');
+    clearTimeout(_t);
+    _t = setTimeout(() => el.classList.remove('on'), 2500);
+  }
+
+  function copyCA() {
+    const btn = document.getElementById('copyBtn');
+    const ca  = document.getElementById('ca').textContent;
+    const write = () => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('ok');
+      toast('✅ Адрес скопирован!');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 2000);
+    };
+    navigator.clipboard.writeText(ca).then(write).catch(() => {
+      const t = document.createElement('textarea');
+      t.value = ca;
+      Object.assign(t.style, { position:'fixed', opacity:'0' });
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand('copy');
+      t.remove();
+      write();
+    });
+  }
+
+  function like(btn) {
+    btn.classList.toggle('liked');
+    btn.querySelector('.i').textContent = btn.classList.contains('liked') ? '❤️' : '🤍';
+    if (btn.classList.contains('liked')) toast('❤️ Liked!');
+  }
+
+  // Live price flicker
+  let price = 0.00069;
+  setInterval(() => {
+    price += (Math.random() - 0.48) * 0.000004;
+    price = Math.max(0.0006, price);
+    const el = document.getElementById('livePrice');
+    if (el) el.textContent = '$' + price.toFixed(5);
+  }, 3000);
+</script>
+</body>
+</html>

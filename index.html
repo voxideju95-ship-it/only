@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OnlyPumps | $ONLYPUMPS</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -233,12 +234,6 @@
     .post-text .t { color: var(--blue); font-weight: 600; }
 
     /* ── POST IMAGE ──────────────────────────────────────── */
-    /*
-      Как добавить картинку:
-      <div class="post-img">
-        <img src="твоя-картинка.jpg" />
-      </div>
-    */
     .post-img {
       width: 100%;
       aspect-ratio: 4/3;
@@ -348,7 +343,6 @@
       font-size: 28px; gap: 10px; opacity: 0.9;
       position: relative;
     }
-    /* Аватар обложки — можно заменить на <img> */
     .profile-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
     .profile-body { padding: 0 16px 16px; }
@@ -434,6 +428,7 @@
     .mrow .v { font-weight: 700; }
     .green { color: var(--green); }
     .blue  { color: var(--blue); }
+    .red   { color: #f44; }
 
     /* Buy */
     .buy-card { padding: 16px; }
@@ -477,6 +472,61 @@
     }
     .toast.on { transform: translateX(-50%) translateY(0); opacity: 1; }
 
+    /* ── MOBILE HEADER ──────────────────────────────────────── */
+    .mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .mobile-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 18px; font-weight: 900; letter-spacing: -0.5px;
+    }
+    .mobile-logo span { color: var(--blue); }
+    .mobile-logo .m-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--blue); border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .mobile-logo .m-logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .mobile-header-right { display: flex; align-items: center; gap: 7px; }
+    .mobile-soc {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 9px;
+      font-size: 14px; color: var(--muted);
+      text-decoration: none; transition: .15s;
+    }
+    .mobile-soc:hover { border-color: var(--blue); color: var(--blue); background: var(--blue3); }
+    .mobile-buy {
+      background: var(--blue); color: #fff;
+      padding: 8px 16px; border-radius: 20px;
+      font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer; transition: .15s;
+    }
+    .mobile-buy:hover { background: var(--blue2); }
+
+    /* ── MOBILE BOTTOM BAR ───────────────────────────────────── */
+    .mobile-buy-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px calc(env(safe-area-inset-bottom, 0px) + 10px);
+      flex-direction: column;
+      gap: 7px;
+    }
+    .mobile-buy-bar .buy-big { font-size: 14px; padding: 12px; }
+
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 960px) {
       .layout { grid-template-columns: 64px 1fr; }
@@ -490,12 +540,47 @@
       .buy-btn::after { content: '🚀'; font-size: 18px; }
     }
     @media (max-width: 600px) {
-      .layout { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; display: flex; flex-direction: column; }
       .sidebar { display: none; }
+      .right {
+        display: flex !important;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 12px 0;
+        order: -1;
+        border-right: none;
+        background: var(--bg);
+      }
+      /* Hide profile card — too large for mobile */
+      .right > .card:first-child { display: none; }
+      /* Hide buy card — it's in the fixed bottom bar */
+      .right > .card:last-child { display: none; }
+      .feed { border-right: none; padding-bottom: 120px; }
+      .feed-top { top: 52px; }
+      .mobile-header { display: flex; }
+      .mobile-buy-bar { display: flex; }
+      .mrow { padding: 8px 12px; font-size: 12px; }
+      .card-title { padding: 10px 12px 6px; }
+      .ca-section { padding: 12px; }
+      .ca-addr { font-size: 9px; }
     }
   </style>
 </head>
 <body>
+
+<!-- ══ MOBILE HEADER ══════════════════════════════════════ -->
+<header class="mobile-header">
+  <div class="mobile-logo">
+    <div class="m-logo-mark"><img src="logo.jpg" alt=""></div>
+    Only<span>Pumps</span>
+  </div>
+  <div class="mobile-header-right">
+    <a href="https://x.com/onlypumps_meme" class="mobile-soc" title="X / Twitter">𝕏</a>
+    <a href="https://t.me/onlypumps_meme" class="mobile-soc" title="Telegram">✈</a>
+    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="mobile-soc" title="Dexscreener">📊</a>
+    <button class="mobile-buy" onclick="toast('🚀 Opening DEX...')">🚀 Buy</button>
+  </div>
+</header>
 
 <div class="layout">
 
@@ -510,7 +595,7 @@
       <div class="i-wrap">🏠</div>
       <span class="label">Home</span>
     </a>
-    <a href="#" class="nav-link">
+    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="nav-link">
       <div class="i-wrap">📈</div>
       <span class="label">Charts</span>
     </a>
@@ -525,10 +610,9 @@
 
     <div class="sidebar-bottom">
       <div class="socials">
-        <!-- Замени href на свои ссылки -->
-        <a href="#" class="soc" title="X / Twitter">𝕏</a>
-        <a href="#" class="soc" title="Telegram">✈</a>
-        <a href="#" class="soc" title="Dexscreener">📊</a>
+        <a href="https://x.com/onlypumps_meme" class="soc" title="X / Twitter">𝕏</a>
+        <a href="https://t.me/onlypumps_meme" class="soc" title="Telegram">✈</a>
+        <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="soc" title="Dexscreener">📊</a>
       </div>
       <button class="buy-btn" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
     </div>
@@ -547,10 +631,10 @@
         <div class="story-ring"><div class="story-inner">🚀</div></div>
         <span class="story-lbl">Launch</span>
       </div>
-      <div class="story">
+      <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at"><div class="story">
         <div class="story-ring"><div class="story-inner">📈</div></div>
         <span class="story-lbl">Chart</span>
-      </div>
+      </div></a>
       <div class="story">
         <div class="story-ring"><div class="story-inner">🌙</div></div>
         <span class="story-lbl">Moon</span>
@@ -570,7 +654,6 @@
     </div>
 
     <!-- ── POST 1 ──────────────────────────────────────── -->
-    <!-- To add an image replace the placeholder div with: <img src="your-image.jpg" /> -->
     <article class="post">
       <div class="post-head">
         <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
@@ -583,7 +666,7 @@
         We only pump. Always. 📈 <span class="t">#ONLYPUMPS</span>
       </div>
       <div class="post-img">
-        <img src="pepe1.png" /> 
+        <img src="pepe1.png" />
       </div>
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 69.4K</button>
@@ -638,7 +721,7 @@
         Pepe is very hot today
       </div>
       <div class="post-img">
-        <img src="pepe2.jpg" /> 
+        <img src="pepe2.jpg" />
       </div>
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
@@ -691,8 +774,6 @@
       <b>on Pump.fun</b>
     </div>
 
-
-
     <button class="of-blue-btn">Unlock Access</button>
   </div>
 
@@ -702,7 +783,8 @@
     <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
   </div>
 </article>
-    <!-- ── POST 3 ──────────────────────────────────────── -->
+
+    <!-- ── POST 5 ──────────────────────────────────────── -->
     <article class="post">
       <div class="post-head">
         <div class="ava"><img class="ava" src="logo.jpg" alt=""></div>
@@ -712,10 +794,9 @@
         </div>
       </div>
       <div class="post-text">
-        50,000 holders 🏆 The army keeps growing. Welcome aboard 🚀
       </div>
       <div class="post-img">
-        <img src="pepe2.jpg" /> 
+        <img src="pepe3.jpg" />
       </div>
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
@@ -789,23 +870,19 @@
     <!-- Profile card -->
     <div class="card">
       <div class="profile-banner">
-        <!-- Обложка профиля: <img src="banner.jpg" /> -->
         🚀 📈 🌙 💎
       </div>
       <div class="profile-body">
         <div class="prof-row">
-          <!--
-            Аватар: <div class="prof-ava"><img src="avatar.jpg" /></div>
-          -->
           <div class="prof-ava"><img class="prof-ava" src="logo.jpg" alt=""></div>
           <button class="follow-btn">+ Follow</button>
         </div>
         <div class="prof-name">OnlyPumps <span class="badge">✓</span></div>
         <div class="prof-handle">@onlypumps</div>
-        <div class="prof-bio">Now it’s not just in that incognito browser, but in your wallet too. Don’t tell anyone you’ve bought it 🤫🩵🤍</div>
+        <div class="prof-bio">Now it's not just in that incognito browser, but in your wallet too. Don't tell anyone you've bought it 🤫🩵🤍</div>
         <div class="prof-stats">
           <div><div class="ps-val">420</div><div class="ps-lbl">Posts</div></div>
-          <div><div class="ps-val">69.4K</div><div class="ps-lbl">Holders</div></div>
+          <div><div class="ps-val">69.4K</div><div class="ps-lbl">Followers</div></div>
           <div><div class="ps-val">1.2M</div><div class="ps-lbl">Likes</div></div>
         </div>
       </div>
@@ -815,9 +892,7 @@
     <div class="card">
       <div class="ca-section">
         <div class="ca-label">Contract Address · Solana</div>
-
         <div class="ca-box">
-          <!-- Замени на свой CA -->
           <span class="ca-addr" id="ca">7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgHEz</span>
           <button class="copy-btn" id="copyBtn" onclick="copyCA()">Copy</button>
         </div>
@@ -826,29 +901,41 @@
 
     <!-- Token metrics -->
     <div class="card">
-      <div class="card-title">Token</div>
-      <div class="mrow"><span class="k">Price</span><span class="v green" id="livePrice">$0.00069</span></div>
-      <div class="mrow"><span class="k">Market Cap</span><span class="v blue">$4.20M</span></div>
-      <div class="mrow"><span class="k">Volume 24h</span><span class="v">$420K</span></div>
-      <div class="mrow"><span class="k">Change 24h</span><span class="v green">+420.69%</span></div>
-      <div class="mrow"><span class="k">Holders</span><span class="v">69,420</span></div>
+      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
+        Token
+        <span id="dexStatus" style="font-size:10px;font-weight:600;color:#ccc;">loading…</span>
+      </div>
+      <div class="mrow"><span class="k">Price</span><span class="v green" id="livePrice">—</span></div>
+      <div class="mrow"><span class="k">Market Cap</span><span class="v blue" id="liveMcap">—</span></div>
+      <div class="mrow"><span class="k">Volume 24h</span><span class="v" id="liveVol">—</span></div>
+      <div class="mrow"><span class="k">Change 24h</span><span class="v green" id="liveChange">—</span></div>
+      <div class="mrow"><span class="k">Liquidity</span><span class="v" id="liveLiq">—</span></div>
     </div>
 
     <!-- Buy -->
     <div class="card">
       <div class="buy-card">
-        <p>Join 69,420 holders. Only pumps — never dumps.</p>
-        <!-- Replace onclick with window.open('your DEX link') -->
+        <p>Join holders. Only pumps — never dumps.</p>
         <button class="buy-big" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
         <div class="dex-row">
-          <a href="#" class="dex-link">Raydium</a>
-          <a href="#" class="dex-link">Jupiter</a>
-          <a href="#" class="dex-link">Dexscreener</a>
+          <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Pump.fun</a>
+          <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Jupiter</a>
+          <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Dexscreener</a>
         </div>
       </div>
     </div>
 
   </aside>
+</div>
+
+<!-- ══ MOBILE BOTTOM BUY BAR ══════════════════════════════ -->
+<div class="mobile-buy-bar">
+  <button class="buy-big" onclick="toast('🚀 Opening DEX...')">🚀 BUY $ONLYPUMPS</button>
+  <div class="dex-row">
+    <a href="https://pump.fun/coin/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Pump.fun</a>
+    <a href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Jupiter</a>
+    <a href="https://dexscreener.com/solana/hvimk99ygssdnwz9esqumdthrfz4dade7j6phmfms6at" class="dex-link">Dexscreener</a>
+  </div>
 </div>
 
 <div class="toast" id="toastEl"></div>
@@ -890,14 +977,64 @@
     if (btn.classList.contains('liked')) toast('❤️ Liked!');
   }
 
-  // Live price flicker
-  let price = 0.00069;
-  setInterval(() => {
-    price += (Math.random() - 0.48) * 0.000004;
-    price = Math.max(0.0006, price);
-    const el = document.getElementById('livePrice');
-    if (el) el.textContent = '$' + price.toFixed(5);
-  }, 3000);
+  // ── Dexscreener live data ──────────────────────────────
+  const DEX_PAIR = '7mkmgzfbx7x7osh4bxyb8v5dypsn2xlhmrxqhfyqphvt';
+
+  function fmtPrice(n) {
+    if (n === null || n === undefined) return '—';
+    if (n < 0.000001) return '$' + n.toExponential(2);
+    if (n < 0.001)    return '$' + n.toFixed(8);
+    if (n < 1)        return '$' + n.toFixed(6);
+    return '$' + n.toFixed(4);
+  }
+
+  function fmtUSD(n) {
+    if (!n) return '—';
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
+    return '$' + n.toFixed(0);
+  }
+
+  async function fetchDex() {
+    try {
+      const res  = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/' + DEX_PAIR);
+      const data = await res.json();
+      const p    = data.pair;
+      if (!p) return;
+
+      // Price
+      const price = parseFloat(p.priceUsd);
+      document.getElementById('livePrice').textContent = fmtPrice(price);
+
+      // Market Cap
+      document.getElementById('liveMcap').textContent = fmtUSD(p.fdv || p.marketCap);
+
+      // Volume 24h
+      document.getElementById('liveVol').textContent = fmtUSD(p.volume?.h24);
+
+      // Change 24h
+      const chEl  = document.getElementById('liveChange');
+      const chVal = parseFloat(p.priceChange?.h24 ?? 0);
+      chEl.textContent = (chVal >= 0 ? '+' : '') + chVal.toFixed(2) + '%';
+      chEl.className = 'v ' + (chVal >= 0 ? 'green' : 'red');
+
+      // Liquidity
+      document.getElementById('liveLiq').textContent = fmtUSD(p.liquidity?.usd);
+
+      // Status
+      const st = document.getElementById('dexStatus');
+      st.textContent = '● live';
+      st.style.color = 'var(--green)';
+
+    } catch(e) {
+      const st = document.getElementById('dexStatus');
+      if (st) { st.textContent = 'error'; st.style.color = '#f44'; }
+    }
+  }
+
+  fetchDex();
+  setInterval(fetchDex, 30000);
 </script>
 </body>
 </html>

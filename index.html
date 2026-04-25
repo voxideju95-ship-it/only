@@ -666,7 +666,7 @@
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 69.4K</button>
         <button class="act"><span class="i">💬</span> 2.1K</button>
-        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+        <button class="share-act" onclick="copyCA()" data-umami-event="click-share-copy-ca">Share</button>
       </div>
     </article>
 
@@ -699,7 +699,7 @@
   <div class="post-foot">
     <button class="act" onclick="like(this)"><span class="i">🤍</span> 42K</button>
     <button class="act"><span class="i">💬</span> 987</button>
-    <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+    <button class="share-act" onclick="copyCA()" data-umami-event="click-share-copy-ca">Share</button>
   </div>
 </article>
 
@@ -721,7 +721,7 @@
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
         <button class="act"><span class="i">💬</span> 3.1K</button>
-        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+        <button class="share-act" onclick="copyCA()" data-umami-event="click-share-copy-ca">Share</button>
       </div>
     </article>
 
@@ -775,7 +775,7 @@
   <div class="post-foot">
     <button class="act" onclick="like(this)"><span class="i">🤍</span> 55K</button>
     <button class="act"><span class="i">💬</span> 1.2K</button>
-    <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+    <button class="share-act" onclick="copyCA()" data-umami-event="click-share-copy-ca">Share</button>
   </div>
 </article>
 
@@ -796,7 +796,7 @@
       <div class="post-foot">
         <button class="act" onclick="like(this)"><span class="i">🤍</span> 88K</button>
         <button class="act"><span class="i">💬</span> 3.1K</button>
-        <button class="share-act" onclick="toast('🔗 Link copied!')">Share</button>
+        <button class="share-act" onclick="copyCA()" data-umami-event="click-share-copy-ca">Share</button>
       </div>
     </article>
 
@@ -870,10 +870,10 @@
       <div class="profile-body">
         <div class="prof-row">
           <div class="prof-ava"><img class="prof-ava" src="logo.jpg" alt=""></div>
-          <button class="follow-btn">+ Follow</button>
+          <a href="https://x.com/onlypumps_meme"><button class="follow-btn">+ Follow</button></a>
         </div>
         <div class="prof-name">OnlyPumps <span class="badge">✓</span></div>
-        <div class="prof-handle">@onlypumps</div>
+        <div class="prof-handle">@onlypumps_meme</div>
         <div class="prof-bio">Now it's not just in that incognito browser, but in your wallet too. Don't tell anyone you've bought it 🤫🩵🤍</div>
         <div class="prof-stats">
           <div><div class="ps-val">420</div><div class="ps-lbl">Posts</div></div>
@@ -951,7 +951,7 @@
     const write = () => {
       btn.textContent = 'Copied!';
       btn.classList.add('ok');
-      toast('✅ Адрес скопирован!');
+      toast('✅ CA copied!');
       setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 2000);
     };
     navigator.clipboard.writeText(ca).then(write).catch(() => {
